@@ -24,7 +24,15 @@ yarn-debug.log*
 yarn-error.log*
 
 # Local env files
+.env
 .env*.local
+.env.production
+.env.development
+
+# Firebase service account keys
+*-firebase-adminsdk-*.json
+service-account*.json
+firebase-adminsdk*.json
 
 # Vercel
 .vercel

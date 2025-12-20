@@ -1,17 +1,12 @@
 import { Metadata } from "next";
 import styles from "./page.module.css";
+import { AppleIcon, GooglePlayIcon } from "../../components/StoreIcons";
 
 type Props = {
   params: { eventId: string };
 };
 
-// TODO: Firebase等からイベント情報を取得する場合はここで実装
-// async function getEvent(eventId: string) {
-//   const res = await fetch(`https://api.example.com/events/${eventId}`);
-//   return res.json();
-// }
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(): Promise<Metadata> {
   // TODO: 実際のイベント情報からメタデータを生成
   return {
     title: `イベント詳細 | Go`,
@@ -29,18 +24,33 @@ export default function EventPage({ params }: Props) {
 
   // iOS/Android向けのディープリンクURL
   const appScheme = `go://event/${eventId}`;
-  const universalLink = `https://go-mobile-event.vercel.app/event/${eventId}`;
 
   return (
     <main className={styles.main}>
-      <div className={styles.container}>
-        <div className={styles.icon}>🎮</div>
-        <h1 className={styles.title}>イベント詳細</h1>
+      <div className={styles.card}>
+        <div className={styles.logoContainer}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/app_icon.png"
+            alt="Go"
+            width={64}
+            height={64}
+            className={styles.logo}
+          />
+        </div>
+
+        <div className={styles.eventBadge}>
+          <span className={styles.eventIcon}>🎮</span>
+          <span>イベント招待</span>
+        </div>
+
+        <h1 className={styles.title}>イベントに招待されています</h1>
         <p className={styles.description}>
-          このイベントの詳細はGoアプリで確認できます
+          Goアプリでイベントの詳細を確認して参加しよう
         </p>
 
         <a href={appScheme} className={styles.openAppButton}>
+          <span className={styles.buttonIcon}>📱</span>
           アプリで開く
         </a>
 
@@ -55,22 +65,28 @@ export default function EventPage({ params }: Props) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            App Store
+            <AppleIcon className={styles.storeIcon} />
+            <div className={styles.storeText}>
+              <span className={styles.storeLabel}>Download on the</span>
+              <span className={styles.storeName}>App Store</span>
+            </div>
           </a>
           <a
-            href="https://play.google.com/store/apps/details?id=com.example.go"
+            href="https://play.google.com/store/apps/details?id=go.mobile"
             className={styles.storeButton}
             target="_blank"
             rel="noopener noreferrer"
           >
-            Google Play
+            <GooglePlayIcon className={styles.storeIcon} />
+            <div className={styles.storeText}>
+              <span className={styles.storeLabel}>GET IT ON</span>
+              <span className={styles.storeName}>Google Play</span>
+            </div>
           </a>
         </div>
 
         <p className={styles.hint}>
-          アプリをインストール後、共有リンクを再度開くと
-          <br />
-          イベント詳細が表示されます
+          アプリインストール後に共有リンクを再度開くと、イベント詳細が表示されます
         </p>
       </div>
     </main>
