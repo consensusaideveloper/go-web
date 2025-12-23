@@ -5,7 +5,7 @@ import { getFirestore, type Firestore } from "firebase-admin/firestore";
 // 環境変数 FIREBASE_ENV で dev/prod を切り替え
 const FIREBASE_PROJECT_IDS = {
   dev: "go-mobile-firebase-dev",
-  prod: "go-mobile-firebase",
+  prod: "go-mobile-cb9f1",
 } as const;
 
 function getProjectId(): string {
