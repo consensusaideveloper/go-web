@@ -1,10 +1,18 @@
 {
   "applinks": {
-    "apps": [],
     "details": [
       {
-        "appID": "972T9QBG2D.com.japan-blue.go-mobile",
-        "paths": ["/event/*", "/user/*"]
+        "appIDs": ["972T9QBG2D.com.japan-blue.go-mobile"],
+        "components": [
+          {
+            "/": "/event/*",
+            "comment": "Match event detail pages"
+          },
+          {
+            "/": "/user/*",
+            "comment": "Match user profile pages"
+          }
+        ]
       }
     ]
   }
