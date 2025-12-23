@@ -153,6 +153,12 @@ export default async function EventPage({ params }: Props) {
               {event.participantCount}/{event.maxParticipants}人
             </span>
           </div>
+          {event.hasPrize && (
+            <div className={styles.eventInfoItem}>
+              <span className={styles.eventInfoIcon}>🏆</span>
+              <span>賞品あり</span>
+            </div>
+          )}
         </div>
 
         {event.description && (

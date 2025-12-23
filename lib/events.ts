@@ -14,6 +14,8 @@ export interface EventData {
   visibility: string;
   status: string;
   hostUserId: string;
+  hasPrize: boolean;
+  prizeContent?: string;
 }
 
 /**
@@ -49,6 +51,8 @@ export async function getEventById(
       visibility: data.visibility || "パブリック",
       status: data.status || "active",
       hostUserId: data.hostUserId || "",
+      hasPrize: data.hasPrize || false,
+      prizeContent: data.prizeContent,
     };
   } catch (error) {
     console.error("Failed to fetch event:", error);
