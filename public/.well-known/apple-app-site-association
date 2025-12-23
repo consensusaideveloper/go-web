@@ -4,7 +4,7 @@
     "details": [
       {
         "appID": "972T9QBG2D.com.japan-blue.go-mobile",
-        "paths": ["/event/*"]
+        "paths": ["/event/*", "/user/*"]
       }
     ]
   }
