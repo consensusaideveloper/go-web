@@ -105,8 +105,11 @@ export default async function EventPage({ params }: Props) {
             アプリからイベントの詳細を確認してください。
           </p>
 
-          <AppOpenButton eventId={eventId} />
           <StoreLinksSection />
+
+          <p className={styles.hint}>
+            アプリをインストール後、この共有リンクを再度開くとアプリでイベント詳細が表示されます
+          </p>
         </div>
       </main>
     );
@@ -169,25 +172,13 @@ export default async function EventPage({ params }: Props) {
           </p>
         )}
 
-        <AppOpenButton eventId={eventId} />
         <StoreLinksSection />
 
         <p className={styles.hint}>
-          アプリインストール後に共有リンクを再度開くと、イベント詳細が表示されます
+          アプリをインストール後、この共有リンクを再度開くとアプリでイベント詳細が表示されます
         </p>
       </div>
     </main>
-  );
-}
-
-function AppOpenButton({ eventId }: { eventId: string }) {
-  const appScheme = `go://event/${eventId}`;
-
-  return (
-    <a href={appScheme} className={styles.openAppButton}>
-      <span className={styles.buttonIcon}>📱</span>
-      アプリで開く
-    </a>
   );
 }
 

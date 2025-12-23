@@ -130,25 +130,13 @@ export default async function UserPage({ params }: Props) {
           </p>
         )}
 
-        <AppOpenButton userId={userId} />
         <StoreLinksSection />
 
         <p className={styles.hint}>
-          アプリインストール後に共有リンクを再度開くと、プロフィール詳細が表示されます
+          アプリをインストール後、この共有リンクを再度開くとアプリでプロフィールが表示されます
         </p>
       </div>
     </main>
-  );
-}
-
-function AppOpenButton({ userId }: { userId: string }) {
-  const appScheme = `go://user/${userId}`;
-
-  return (
-    <a href={appScheme} className={styles.openAppButton}>
-      <span className={styles.buttonIcon}>📱</span>
-      アプリで開く
-    </a>
   );
 }
 
