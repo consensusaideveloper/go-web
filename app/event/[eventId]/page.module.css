@@ -9,19 +9,19 @@
 .card {
   background: white;
   border-radius: 24px;
-  padding: 40px 32px;
-  max-width: 400px;
+  padding: 48px 40px;
+  max-width: 440px;
   width: 100%;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
   text-align: center;
 }
 
 .logoContainer {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .logo {
-  border-radius: 16px;
+  border-radius: 20px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
@@ -43,18 +43,56 @@
 }
 
 .title {
-  font-size: 1.35rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   line-height: 1.4;
 }
 
 .description {
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   margin-bottom: 28px;
   line-height: 1.6;
+}
+
+.eventInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+  padding: 16px 20px;
+  background: var(--background-light);
+  border-radius: 14px;
+  text-align: left;
+}
+
+.eventInfoItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.eventInfoIcon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  width: 24px;
+  text-align: center;
+}
+
+.eventDescription {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin-bottom: 28px;
+  text-align: left;
+  padding: 14px 16px;
+  background: var(--background-light);
+  border-radius: 12px;
+  border-left: 4px solid var(--gradient-start);
 }
 
 .openAppButton {
@@ -71,6 +109,7 @@
   font-size: 1.05rem;
   transition: all 0.2s;
   box-shadow: 0 4px 16px rgba(74, 144, 226, 0.3);
+  margin-bottom: 8px;
 }
 
 .openAppButton:hover {
@@ -105,7 +144,7 @@
 .storeLinks {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .storeButton {
@@ -113,22 +152,22 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
-  background: var(--background-light);
-  border: 1px solid var(--border);
-  color: var(--text-primary);
-  padding: 12px 20px;
+  background: var(--primary);
+  color: white;
+  padding: 14px 24px;
   border-radius: 12px;
   transition: all 0.2s;
 }
 
 .storeButton:hover {
-  background: var(--background-dark);
-  border-color: var(--primary-light);
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(30, 64, 175, 0.3);
 }
 
 .storeIcon {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   flex-shrink: 0;
 }
 
@@ -139,12 +178,12 @@
 }
 
 .storeLabel {
-  font-size: 0.65rem;
-  color: var(--text-light);
+  font-size: 0.7rem;
+  opacity: 0.9;
 }
 
 .storeName {
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   font-weight: 600;
 }
 
@@ -161,6 +200,10 @@
   }
 
   .title {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
+  }
+
+  .eventInfo {
+    padding: 14px 16px;
   }
 }

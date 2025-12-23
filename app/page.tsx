@@ -15,9 +15,12 @@ export default function Home() {
             className={styles.logo}
           />
         </div>
-        <h1 className={styles.title}>ゲームイベントプラットフォーム</h1>
+        <h1 className={styles.title}>Go</h1>
+        <p className={styles.subtitle}>ゲームイベント管理プラットフォーム</p>
         <p className={styles.description}>
-          ゲームイベントを見つけて、参加して、仲間とつながろう
+          イベントの企画・運営・参加をひとつのアプリで。
+          <br />
+          誰でも簡単にゲーム大会を開催できます。
         </p>
 
         <div className={styles.features}>
@@ -37,7 +40,7 @@ export default function Home() {
 
         <div className={styles.storeLinks}>
           <a
-            href="https://apps.apple.com/app/id000000000"
+            href="https://apps.apple.com/jp/app/go/id6756296268"
             className={styles.storeButton}
             target="_blank"
             rel="noopener noreferrer"

@@ -26,10 +26,18 @@
 }
 
 .title {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 12px;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--gradient-start);
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
 }
 
 .description {
@@ -116,6 +124,14 @@
   }
 
   .title {
-    font-size: 1.25rem;
+    font-size: 1.75rem;
+  }
+
+  .subtitle {
+    font-size: 0.85rem;
+  }
+
+  .description {
+    font-size: 0.9rem;
   }
 }
