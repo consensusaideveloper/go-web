@@ -5,7 +5,8 @@
       "namespace": "android_app",
       "package_name": "go.mobile",
       "sha256_cert_fingerprints": [
-        "24:1A:89:3F:3F:D1:42:60:EB:D4:6F:EB:D1:6E:3A:E0:54:98:21:80:F5:F3:B7:5A:A3:C5:8F:3C:66:E2:6F:FA"
+        "24:1A:89:3F:3F:D1:42:60:EB:D4:6F:EB:D1:6E:3A:E0:54:98:21:80:F5:F3:B7:5A:A3:C5:8F:3C:66:E2:6F:FA",
+        "41:90:EC:DF:73:6F:46:0A:90:2E:19:CA:9B:8D:50:1A:EE:13:22:0F:39:58:94:EE:2B:0F:51:7F:45:1C:07:0A"
       ]
     }
   }
