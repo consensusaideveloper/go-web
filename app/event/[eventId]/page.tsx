@@ -1,19 +1,33 @@
 import { Metadata } from "next";
+import { headers } from "next/headers";
 import styles from "./page.module.css";
 import { AppleIcon, GooglePlayIcon } from "../../components/StoreIcons";
 import { getEventById } from "../../../lib/events";
+import {
+  getLocaleFromHeader,
+  t,
+  SupportedLocale,
+} from "../../../lib/i18n/translations";
 
 type Props = {
   params: { eventId: string };
+  searchParams: { lang?: string };
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+  searchParams,
+}: Props): Promise<Metadata> {
+  const headersList = headers();
+  const acceptLanguage = headersList.get("accept-language");
+  const locale = getLocaleFromHeader(acceptLanguage, searchParams.lang);
+
   const event = await getEventById(params.eventId);
 
   if (!event) {
     return {
-      title: "イベントが見つかりません | Go",
-      description: "このイベントは存在しないか、削除されました。",
+      title: t(locale, "eventNotFoundTitle"),
+      description: t(locale, "eventNotFoundDescription"),
     };
   }
 
@@ -21,7 +35,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description =
     event.description.length > 100
       ? `${event.description.substring(0, 100)}...`
-      : event.description || `${event.gameName || "ゲーム"}イベントに参加しよう`;
+      : event.description ||
+        t(locale, "eventDefaultDescription");
 
   return {
     title,
@@ -43,8 +58,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function EventPage({ params }: Props) {
+export default async function EventPage({ params, searchParams }: Props) {
   const { eventId } = params;
+  const headersList = headers();
+  const acceptLanguage = headersList.get("accept-language");
+  const locale = getLocaleFromHeader(acceptLanguage, searchParams.lang);
+
   const event = await getEventById(eventId);
 
   // イベントが見つからない場合
@@ -65,15 +84,15 @@ export default async function EventPage({ params }: Props) {
 
           <div className={styles.eventBadge}>
             <span className={styles.eventIcon}>❓</span>
-            <span>イベントが見つかりません</span>
+            <span>{t(locale, "eventNotFoundTitle").replace(" | Go", "")}</span>
           </div>
 
-          <h1 className={styles.title}>このイベントは存在しません</h1>
+          <h1 className={styles.title}>{t(locale, "eventNotFoundHeading")}</h1>
           <p className={styles.description}>
-            イベントが削除されたか、URLが間違っている可能性があります。
+            {t(locale, "eventNotFoundDetail")}
           </p>
 
-          <StoreLinksSection />
+          <StoreLinksSection locale={locale} />
         </div>
       </main>
     );
@@ -97,19 +116,17 @@ export default async function EventPage({ params }: Props) {
 
           <div className={styles.eventBadge}>
             <span className={styles.eventIcon}>🔒</span>
-            <span>プライベートイベント</span>
+            <span>{t(locale, "eventPrivate")}</span>
           </div>
 
-          <h1 className={styles.title}>このイベントは非公開です</h1>
+          <h1 className={styles.title}>{t(locale, "eventPrivateHeading")}</h1>
           <p className={styles.description}>
-            アプリからイベントの詳細を確認してください。
+            {t(locale, "eventPrivateDetail")}
           </p>
 
-          <StoreLinksSection />
+          <StoreLinksSection locale={locale} />
 
-          <p className={styles.hint}>
-            アプリをインストール後、この共有リンクを再度開くとアプリでイベント詳細が表示されます
-          </p>
+          <p className={styles.hint}>{t(locale, "eventHint")}</p>
         </div>
       </main>
     );
@@ -134,7 +151,7 @@ export default async function EventPage({ params }: Props) {
 
         <div className={styles.eventBadge}>
           <span className={styles.eventIcon}>🎮</span>
-          <span>イベント招待</span>
+          <span>{t(locale, "eventInvite")}</span>
         </div>
 
         <h1 className={styles.title}>{event.name}</h1>
@@ -153,13 +170,16 @@ export default async function EventPage({ params }: Props) {
           <div className={styles.eventInfoItem}>
             <span className={styles.eventInfoIcon}>👥</span>
             <span>
-              {event.participantCount}/{event.maxParticipants}人
+              {t(locale, "eventParticipants", {
+                current: event.participantCount,
+                max: event.maxParticipants,
+              })}
             </span>
           </div>
           {event.hasPrize && (
             <div className={styles.eventInfoItem}>
               <span className={styles.eventInfoIcon}>🏆</span>
-              <span>賞品あり</span>
+              <span>{t(locale, "eventPrizeAvailable")}</span>
             </div>
           )}
         </div>
@@ -172,21 +192,19 @@ export default async function EventPage({ params }: Props) {
           </p>
         )}
 
-        <StoreLinksSection />
+        <StoreLinksSection locale={locale} />
 
-        <p className={styles.hint}>
-          アプリをインストール後、この共有リンクを再度開くとアプリでイベント詳細が表示されます
-        </p>
+        <p className={styles.hint}>{t(locale, "eventHint")}</p>
       </div>
     </main>
   );
 }
 
-function StoreLinksSection() {
+function StoreLinksSection({ locale }: { locale: SupportedLocale }) {
   return (
     <>
       <div className={styles.divider}>
-        <span>アプリをお持ちでない方</span>
+        <span>{t(locale, "appNotInstalled")}</span>
       </div>
 
       <div className={styles.storeLinks}>

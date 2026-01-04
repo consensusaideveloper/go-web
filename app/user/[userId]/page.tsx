@@ -1,19 +1,33 @@
 import { Metadata } from "next";
+import { headers } from "next/headers";
 import styles from "./page.module.css";
 import { AppleIcon, GooglePlayIcon } from "../../components/StoreIcons";
 import { getUserByCustomId } from "../../../lib/users";
+import {
+  getLocaleFromHeader,
+  t,
+  SupportedLocale,
+} from "../../../lib/i18n/translations";
 
 type Props = {
   params: { userId: string };
+  searchParams: { lang?: string };
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+  searchParams,
+}: Props): Promise<Metadata> {
+  const headersList = headers();
+  const acceptLanguage = headersList.get("accept-language");
+  const locale = getLocaleFromHeader(acceptLanguage, searchParams.lang);
+
   const user = await getUserByCustomId(params.userId);
 
   if (!user) {
     return {
-      title: "ユーザーが見つかりません | Go",
-      description: "このユーザーは存在しないか、削除されました。",
+      title: t(locale, "userNotFoundTitle"),
+      description: t(locale, "userNotFoundDescription"),
     };
   }
 
@@ -23,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       ? user.bio.length > 100
         ? `${user.bio.substring(0, 100)}...`
         : user.bio
-      : `${user.username}さんのプロフィール`;
+      : t(locale, "userDefaultDescription", { username: user.username });
 
   return {
     title,
@@ -45,8 +59,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function UserPage({ params }: Props) {
+export default async function UserPage({ params, searchParams }: Props) {
   const { userId } = params;
+  const headersList = headers();
+  const acceptLanguage = headersList.get("accept-language");
+  const locale = getLocaleFromHeader(acceptLanguage, searchParams.lang);
+
   const user = await getUserByCustomId(userId);
 
   // ユーザーが見つからない場合
@@ -67,15 +85,15 @@ export default async function UserPage({ params }: Props) {
 
           <div className={styles.userBadge}>
             <span className={styles.userIcon}>❓</span>
-            <span>ユーザーが見つかりません</span>
+            <span>{t(locale, "userNotFoundTitle").replace(" | Go", "")}</span>
           </div>
 
-          <h1 className={styles.title}>このユーザーは存在しません</h1>
+          <h1 className={styles.title}>{t(locale, "userNotFoundHeading")}</h1>
           <p className={styles.description}>
-            ユーザーが削除されたか、URLが間違っている可能性があります。
+            {t(locale, "userNotFoundDetail")}
           </p>
 
-          <StoreLinksSection />
+          <StoreLinksSection locale={locale} />
         </div>
       </main>
     );
@@ -98,7 +116,7 @@ export default async function UserPage({ params }: Props) {
 
         <div className={styles.userBadge}>
           <span className={styles.userIcon}>👤</span>
-          <span>ユーザープロフィール</span>
+          <span>{t(locale, "userProfile")}</span>
         </div>
 
         {/* ユーザーアバター */}
@@ -130,21 +148,19 @@ export default async function UserPage({ params }: Props) {
           </p>
         )}
 
-        <StoreLinksSection />
+        <StoreLinksSection locale={locale} />
 
-        <p className={styles.hint}>
-          アプリをインストール後、この共有リンクを再度開くとアプリでプロフィールが表示されます
-        </p>
+        <p className={styles.hint}>{t(locale, "userHint")}</p>
       </div>
     </main>
   );
 }
 
-function StoreLinksSection() {
+function StoreLinksSection({ locale }: { locale: SupportedLocale }) {
   return (
     <>
       <div className={styles.divider}>
-        <span>アプリをお持ちでない方</span>
+        <span>{t(locale, "appNotInstalled")}</span>
       </div>
 
       <div className={styles.storeLinks}>
