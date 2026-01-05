@@ -99,7 +99,11 @@ export default async function EventPage({ params, searchParams }: Props) {
   }
 
   // プライベートイベントの場合
-  if (event.visibility === "プライベート") {
+  // Firestoreのデータは日本語で格納されているため、複数の値をチェック
+  const isPrivate = event.visibility === "プライベート" ||
+                    event.visibility === "private" ||
+                    event.visibility?.toLowerCase() === "private";
+  if (isPrivate) {
     return (
       <main className={styles.main}>
         <div className={styles.card}>

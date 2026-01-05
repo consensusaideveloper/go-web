@@ -1,7 +1,35 @@
+import { Metadata } from "next";
+import { headers } from "next/headers";
 import styles from "./page.module.css";
 import { AppleIcon, GooglePlayIcon } from "./components/StoreIcons";
+import {
+  getLocaleFromHeader,
+  t,
+  SupportedLocale,
+} from "../lib/i18n/translations";
 
-export default function Home() {
+type Props = {
+  searchParams: { lang?: string };
+};
+
+export async function generateMetadata({
+  searchParams,
+}: Props): Promise<Metadata> {
+  const headersList = headers();
+  const acceptLanguage = headersList.get("accept-language");
+  const locale = getLocaleFromHeader(acceptLanguage, searchParams.lang);
+
+  return {
+    title: t(locale, "appTitle"),
+    description: t(locale, "appDescription"),
+  };
+}
+
+export default function Home({ searchParams }: Props) {
+  const headersList = headers();
+  const acceptLanguage = headersList.get("accept-language");
+  const locale = getLocaleFromHeader(acceptLanguage, searchParams.lang);
+
   return (
     <main className={styles.main}>
       <div className={styles.card}>
@@ -16,25 +44,21 @@ export default function Home() {
           />
         </div>
         <h1 className={styles.title}>Go</h1>
-        <p className={styles.subtitle}>ゲームイベント管理プラットフォーム</p>
-        <p className={styles.description}>
-          イベントの企画・運営・参加をひとつのアプリで。
-          <br />
-          誰でも簡単にゲーム大会を開催できます。
-        </p>
+        <p className={styles.subtitle}>{t(locale, "homeSubtitle")}</p>
+        <p className={styles.description}>{t(locale, "homeDescription")}</p>
 
         <div className={styles.features}>
           <div className={styles.feature}>
             <span className={styles.featureIcon}>🎮</span>
-            <span>イベント検索</span>
+            <span>{t(locale, "homeFeatureSearch")}</span>
           </div>
           <div className={styles.feature}>
             <span className={styles.featureIcon}>👥</span>
-            <span>参加者マッチング</span>
+            <span>{t(locale, "homeFeatureMatching")}</span>
           </div>
           <div className={styles.feature}>
             <span className={styles.featureIcon}>🏆</span>
-            <span>大会運営</span>
+            <span>{t(locale, "homeFeatureTournament")}</span>
           </div>
         </div>
 

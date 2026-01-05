@@ -1,10 +1,7 @@
-import type { Metadata } from "next";
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: "Go - ゲームイベントプラットフォーム",
-  description: "ゲームイベントを見つけて参加しよう",
-};
+// Note: 各ページで generateMetadata を使用して言語に応じたメタデータを生成
+// ここではデフォルトのメタデータのみ設定
 
 export default function RootLayout({
   children,
@@ -12,7 +9,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
+    <html>
       <body>{children}</body>
     </html>
   );
